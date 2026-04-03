@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Gotham Times | Archive Edition</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Playfair+Display:ital,wght@0,900;1,900&family=Special+Elite&display=swap');
+
+        :root {
+            --paper-white: #e5e2d9;
+            --ink-black: #1a1a1a;
+            --halftone-gray: #d1cdc0;
+        }
+
+        * { box-sizing: border-box; }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
+            font-family: 'Special Elite', serif;
+            scroll-behavior: smooth;
+            color: var(--ink-black);
+        }
+
+        .page {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .newspaper-sheet {
+            background-color: var(--paper-white);
+            background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+            width: 100%;
+            max-width: 900px;
+            padding: 50px;
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+            border: 2px solid var(--ink-black);
+            position: relative;
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 5px double var(--ink-black);
+            border-top: 5px double var(--ink-black);
+            margin-bottom: 25px;
+            padding: 10px 0;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(35px, 8vw, 70px);
+            margin: 0;
+            font-style: italic;
+            outline: none;
+        }
+
+        .date-line {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-top: 1px solid var(--ink-black);
+            margin-top: 5px;
+            padding: 3px 0;
+        }
+
+        .main-headline {
+            font-family: 'Oswald', sans-serif;
+            font-size: clamp(35px, 8vw, 85px);
+            line-height: 0.85;
+            margin: 15px 0;
+            letter-spacing: -2px;
+            text-transform: uppercase;
+            outline: none;
+            text-align: center;
+        }
+
+        /* The Big Rectangle Image Box */
+        .big-asset-box { 
+            position: relative;
+            background: var(--halftone-gray);
+            border: 2px solid var(--ink-black);
+            margin: 20px 0;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .big-asset-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            filter: grayscale(100%) contrast(1.4) brightness(0.9);
+        }
+
+        .upload-btn {
+            position: absolute;
+            background: var(--ink-black);
+            color: var(--paper-white);
+            padding: 12px 20px;
+            border: none;
+            font-family: 'Oswald', sans-serif;
+            cursor: pointer;
+            opacity: 0.1;
+            transition: 0.3s;
+            z-index: 10;
+        }
+
+        .big-asset-box:hover .upload-btn { opacity: 1; }
+
+        .article-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            text-align: justify;
+        }
+
+        .section-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 24px;
+            margin: 0 0 10px 0;
+            text-transform: uppercase;
+        }
+
+        .level-tracker {
+            margin-top: 10px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .level-tracker input {
+            background: transparent;
+            border-bottom: 1px dashed var(--ink-black);
+            border-top: none; border-left: none; border-right: none;
+            font-family: 'Special Elite', serif;
+            padding: 2px 5px;
+            width: 140px;
+            outline: none;
+        }
+
+        .nav-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--ink-black);
+            color: var(--paper-white);
+            padding: 15px 25px;
+            text-decoration: none;
+            font-family: 'Oswald', sans-serif;
+            border-radius: 4px;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+
+        [contenteditable="true"]:focus { outline: none; background: rgba(0,0,0,0.05); }
+
+        input[type="file"] { display: none; }
+
+        @media (max-width: 600px) {
+            .article-grid { grid-template-columns: 1fr; }
+            .newspaper-sheet { padding: 25px; }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="#slide2" class="nav-btn" id="scrollBtn">PAGE 2 →</a>
+
+    <section class="page" id="slide1">
+        <div class="newspaper-sheet">
+            <header>
+                <h1 class="logo" contenteditable="true">The Gotham Times</h1>
+                <div class="date-line">
+                    <span contenteditable="true">ARCHIVE NO. 03/04/2000</span>
+                    <span contenteditable="true">FRONT PAGE EXCLUSIVE</span>
+                </div>
+            </header>
+
+            <h1 class="main-headline" contenteditable="true">BATMAN, 
+              BIRTHDAY BOY?</h1>
+
+            <div class="big-asset-box">
+                <img id="img1" src="image1.jpg" style="display:block;">
+                <button class="upload-btn" onclick="document.getElementById('file1').click()">UPLOAD FRONT PAGE IMAGE</button>
+                <input type="file" id="file1" accept="image/*" onchange="preview(event, 'img1')">
+                <span style="opacity:0.4;">[ CLICK TO LOAD B&W IMAGE ]</span>
+            </div>
+
+            <div class="article-grid">
+                <p contenteditable="true"><strong>GOTHAM CITY</strong> — Who is batman? What’s his real name? As per 03/04/2000 batman was born in Chembur, in a loving family. Swanand (Batman) has always tried his best to make others around him happy. He cares a lot for his parents and "obviously his secretive girlfriend ", the city is unaware of. </p>
+                <p contenteditable="true" style="font-style: italic; border-left: 3px solid var(--ink-black); padding-left: 15px;">Day by day he has taken small steps towards being strong and courageous in life. Thought everyday is a struggle but he is trying very hard and one day "city" will make him successful.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="page" id="slide2">
+        <div class="newspaper-sheet">
+            <header>
+                <h1 class="logo" contenteditable="true">Today's B'day Mystery</h1>
+                <div class="date-line"><span>03/04/2000</span><span>A biggest Mystery</span></div>
+            </header>
+
+            <div class="big-asset-box">
+               <img id="img2" src="image2.jpg" style="display:block;">
+                <button class="upload-btn" onclick="document.getElementById('file2').click()">LOAD COLLAGE IMAGE</button>
+                <input type="file" id="file2" accept="image/*" onchange="preview(event, 'img2')">
+                <span style="opacity:0.4;">[ CLICK TO LOAD B&W IMAGE ]</span>
+            </div>
+
+            <h1 class="main-headline" contenteditable="true">A GOTHAM BIRTHDAY, MYSTERY SOLVED?</h1>
+            
+            <p style="text-align: center; border-bottom: 1px solid var(--ink-black); padding-bottom: 15px; margin-bottom: 15px;" contenteditable="true">
+                Witnesses confirm that this dedicated supporter, shown in rare photographs above, has been integral to the secret success of certain covert operations.
+                <h3 class="section-title" contenteditable="true">Message from- CATWOMEN????? </h3>
+            </p>
+            <p contenteditable="true" style="font-size: 14px;">"You’re a hard man to find,Swanzz. Good thing I’m an expert at tracking."</p>
+
+            <div class="article-grid">
+                <div>
+                    <h3 class="section-title" contenteditable="true">The Man Behind the Mask: An Exclusive Investigative Report</h3>
+                    <p contenteditable="true" style="font-size: 14px;">"In a city full of chaos, one individual has consistently proven that true strength lies in kindness and effort. Sources close to the hero—specifically his partner-in-crime—report that Baby Princess has exceeded all expectations. Whether it’s his unwavering support or the way he handles the 'Catwoman' in his life, he has officially secured the title of Gotham's Finest..." </p>
+                    
+                    
+                </div>
+                <div style="border-left: 1px solid var(--ink-black); padding-left: 15px;">
+                    <h3 class="section-title" contenteditable="true">THE MAN OF EFFORT</h3>
+                    <p contenteditable="true" style="font-size: 14px;">Every Batman needs his Catwoman, but more importantly, every hero needs a partner who sees the man behind the mask. Thank you for all the effort you put into 'us'.</p>
+                    
+                    <h3 class="level-tracker"> PRIMARY STRNGTH </h3>
+                    <p contenteditable="true" style="font-size: 14px;">Incredible patience with Catwoman."</p>
+                
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="page" id="slide3">
+        <div class="newspaper-sheet">
+            <header>
+                <h1 class="logo" contenteditable="true">The Knight Rises</h1>
+                <div class="date-line"><span>03/02/2000</span><span>Bithday Wishes</span></div>
+            </header>
+
+            <h1 class="main-headline" contenteditable="true" style="font-size: 35px;">BREAKING: THE DARK KNIGHT TAKES A NIGHT OFF FOR CAKE</h1>
+
+            <div class="big-asset-box">
+               <img id="img3" src="image3.jpg" style="display:block;">
+                <button class="upload-btn" onclick="document.getElementById('file3').click()">LOAD FINAL PHOTO</button>
+                <input type="file" id="file3" accept="image/*" onchange="preview(event, 'img3')">
+                <span style="opacity:0.4;">[ CLICK TO LOAD B&W IMAGE ]</span>
+            </div>
+
+                <div contenteditable="true">
+                    They say that Gotham is a city of shadows—a place where it’s easy to feel lost. For a long time, I walked those rooftops alone, looking for something. And then, I met you. From that very first day, the 'shadows' didn't seem so dark anymore.
+                    <br><br>
+                    Before you, life felt like a constant mission, a series of battles I had to fight on my own. But you stepped into my story and changed the entire narrative. You didn't just bring light; you brought a sense of peace I never thought possible for me.
+                </div>
+                
+                <div contenteditable="true">
+                    It’s rare to find a hero who doesn't just fight the big battles, but also handles the quiet moments with so much grace. Because of the way you show up—with your strength, your patience, and the incredible effort you put into 'us'—I’ve realized that I don't have to be on guard anymore.
+                    <br><br>
+                    You are the steady hand when things get chaotic and the calm in every storm. You’re not just the man I love; you’re the person who made my life more beautiful than any "super hero movie".
+                </div>
+                <br><br>
+                <div class="pull-quote" contenteditable="true">
+                    "YOU MAKE LOVE FEEL EFFORTLESS. YOU MAKE LIFE FEEL EASY."
+                </div>
+                <br><br>
+                <div style="grid-column: span 2; text-align: center;" contenteditable="true">
+                    Thank you for being my hero, my home, and my favorite mystery to solve every single day. I’m so glad the Bat-signal led me to you.
+                    <br><br>
+                    <strong>— Your Forever Catwoman</strong>
+            <p contenteditable="true" style="text-align: center; font-size: 15px; text-transform: uppercase; font-'family'true': 'Oswald';">
+                Happiest birthday my little Muffin, I love you very much.  To the hero who saved my heart.
+            </p>
+        </div>
+    </section>
+
+    <script>
+        function preview(event, id) {
+            const reader = new FileReader();
+            reader.onload = function(){
+                const out = document.getElementById(id);
+                out.src = reader.result;
+                out.style.display = 'block';
+                out.nextElementSibling.nextElementSibling.nextElementSibling.style.display = 'none';
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+
+        const btn = document.getElementById('scrollBtn');
+        window.addEventListener('scroll', () => {
+            const y = window.scrollY;
+            const h = window.innerHeight;
+            if (y < h * 0.5) { btn.innerText = "PAGE 2 →"; btn.href = "#slide2"; }
+            else if (y < h * 1.5) { btn.innerText = "PAGE 3 →"; btn.href = "#slide3"; }
+            else { btn.innerText = "← BACK TO PAGE 1"; btn.href = "#slide1"; }
+        });
+    </script>
+</body>
+</html>
+
